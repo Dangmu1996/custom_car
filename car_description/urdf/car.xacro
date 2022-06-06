@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<robot name="car" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="base_x_size" value="0.8" />
+    <xacro:property name="base_y_size" value="0.4"/>
+    <xacro:property name="base_z_size" value="0.1"/>
+    <xacro:property name="mass" value="3"/>
+    <xacro:property name="offset" value="0.07"/>
+    <xacro:property name="PI" value="3.1415926535897931"/>
+
+    <xacro:include filename="$(find car_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find car_description)/urdf/car.gazebo" />
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${mass}"/>
+            <inertia
+                ixx="${mass / 12.0 * (base_y_size*base_y_size+base_z_size*base_z_size)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 12.0 * (base_x_size*base_x_size+base_z_size*base_z_size)}" iyz="0.0"
+                izz="${mass / 12.0 * (base_x_size*base_x_size+base_y_size*base_y_size)}"
+                />
+        </inertial>
+    </link>
+
+    <joint name="front_l_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_l_wheel"/>
+        <origin xyz="${base_x_size/4} ${base_y_size/2} ${-offset}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="front_l_wheel">
+        <visual>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0" />
+            <mass value="0.01" />
+            <inertia
+              ixx="0.01" ixy="0.0" ixz="0.0"
+              iyy="0.01" iyz="0.0"
+              izz="0.01" />
+        </inertial>
+    </link>
+
+    <joint name="front_r_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_r_wheel"/>
+        <origin xyz="${base_x_size/4} ${-base_y_size/2} ${-offset}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="front_r_wheel">
+        <visual>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0" />
+            <mass value="0.01" />
+            <inertia
+              ixx="0.01" ixy="0.0" ixz="0.0"
+              iyy="0.01" iyz="0.0"
+              izz="0.01" />
+        </inertial>
+    </link>
+
+    <joint name="back_l_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="back_l_wheel"/>
+        <origin xyz="${-base_x_size/4} ${base_y_size/2} ${-offset}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="back_l_wheel">
+        <visual>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.025 0" rpy="${PI/2} 0 0" />
+            <mass value="0.01" />
+            <inertia
+              ixx="0.01" ixy="0.0" ixz="0.0"
+              iyy="0.01" iyz="0.0"
+              izz="0.01" />
+        </inertial>
+    </link>
+
+    <joint name="back_r_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="back_r_wheel"/>
+        <origin xyz="${-base_x_size/4} ${-base_y_size/2} ${-offset}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="back_r_wheel">
+        <visual>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 -0.025 0" rpy="${PI/2} 0 0" />
+            <mass value="0.01" />
+            <inertia
+              ixx="0.01" ixy="0.0" ixz="0.0"
+              iyy="0.01" iyz="0.0"
+              izz="0.01" />
+        </inertial>
+    </link>
+
+    
+    <transmission name="front_l_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="front_l_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="front_l_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+    
+    <transmission name="front_r_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="front_r_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="front_r_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <transmission name="back_l_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="back_l_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="back_l_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <transmission name="back_r_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="back_r_wheel_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="back_r_wheel_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+</robot>
