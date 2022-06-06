@@ -4,7 +4,7 @@ first I make a car in gazebo
 
 but it is not moving
 
-I'll keep on work this to combine with the cmd_vel
+I'll keep in work on this to combine with the cmd_vel
 
 To launch the custom  car 
 
