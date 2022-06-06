@@ -4,7 +4,7 @@ car_state_controller:
   publish_rate: 50
 
 # Joint velocity controllers ---------------------------------
-car_motor_r_controller:
+front_car_motor_r_controller:
   type: velocity_controllers/JointVelocityController
   joint: front_r_wheel_joint
   pid:
@@ -12,9 +12,25 @@ car_motor_r_controller:
     i: 20.0
     i_clamp: 100.0
 
-car_motor_l_controller:
+front_car_motor_l_controller:
   type: velocity_controllers/JointVelocityController
   joint: front_l_wheel_joint
+  pid:
+    p: 5.0
+    i: 20.0
+    i_clamp: 100.0
+
+back_car_motor_r_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_r_wheel_joint
+  pid:
+    p: 5.0
+    i: 20.0
+    i_clamp: 100.0
+
+back_car_motor_l_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: back_l_wheel_joint
   pid:
     p: 5.0
     i: 20.0
